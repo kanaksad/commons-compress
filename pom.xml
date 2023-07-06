@@ -92,12 +92,17 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
     <dependency>
       <groupId>org.checkerframework</groupId>
       <artifactId>checker-qual</artifactId>
-      <version>3.26.0</version>
+      <version>3.35.0</version>
     </dependency>
     <dependency>
       <groupId>com.google.errorprone</groupId>
       <artifactId>javac</artifactId>
       <version>9+181-r4173-1</version>
+    </dependency>
+    <dependency>
+      <groupId>edu.ucr.cs.riple.taint</groupId>
+      <artifactId>ucrtainting-checker</artifactId>
+      <version>0.1</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -582,6 +587,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
   <profiles>
     <profile>
       <id>checkerframework</id>
+      <!-- If you omit the activation block, run mvn with "-P checkerframework" to run checkers. -->
       <activation>
         <jdk>[1.8,)</jdk>
       </activation>
@@ -598,16 +604,20 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
               </compilerArguments>
               <annotationProcessorPaths>
                 <path>
-                  <groupId>org.checkerframework</groupId>
-                  <artifactId>checker</artifactId>
-                  <version>3.30.0</version>
+                  <groupId>edu.ucr.cs.riple.taint</groupId>
+                  <artifactId>ucrtainting-checker</artifactId>
+                  <version>0.1</version>
                 </path>
               </annotationProcessorPaths>
               <annotationProcessors>
                 <!-- Add all the checkers you want to enable here -->
-                <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+                <annotationProcessor>edu.ucr.cs.riple.taint.ucrtainting.UCRTaintingChecker</annotationProcessor>
               </annotationProcessors>
               <compilerArgs>
+                <arg>-AannotatedPackages=org.apache</arg>
+                <arg>-AenableLibraryCheck=true</arg>
+                <arg>-AenableSanitizationCheck=false</arg>
+                <arg>-AenableValidationCheck=false</arg>
                 <!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
               </compilerArgs>
             </configuration>
@@ -618,7 +628,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
         <dependency>
           <groupId>org.checkerframework</groupId>
           <artifactId>checker</artifactId>
-          <version>3.30.0</version>
+          <version>3.35.0</version>
         </dependency>
       </dependencies>
     </profile>
@@ -683,7 +693,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
         </plugins>
       </build>
       <properties>
-        <!-- Needed for animal-sniffer-maven-plugin version 1.19 (version 1.20 is fixed). -->
+        <!-- Needed for animal-sniffer-maven-plugin version 1.19 which is broken (version 1.20 is fixed). -->
         <animal.sniffer.skip>true</animal.sniffer.skip>
       </properties>
     </profile>
