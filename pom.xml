@@ -92,7 +92,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
     <dependency>
       <groupId>org.checkerframework</groupId>
       <artifactId>checker-qual</artifactId>
-      <version>3.35.0</version>
+      <version>3.38.0</version>
     </dependency>
     <dependency>
       <groupId>com.google.errorprone</groupId>
@@ -615,9 +615,9 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
               </annotationProcessors>
               <compilerArgs>
                 <arg>-AannotatedPackages=org.apache</arg>
-                <arg>-AenableLibraryCheck=true</arg>
-                <arg>-AenableSanitizationCheck=false</arg>
-                <arg>-AenableValidationCheck=false</arg>
+<!--                <arg>-AenableLibraryCheck</arg>-->
+<!--                <arg>-AenableSanitizationCheck</arg>-->
+<!--                <arg>-AenableValidationCheck</arg>-->
                 <!-- <arg>-Awarns</arg> --> <!-- -Awarns turns type-checking errors into warnings. -->
               </compilerArgs>
             </configuration>
@@ -628,7 +628,7 @@ Brotli, Zstandard and ar, cpio, jar, tar, zip, dump, 7z, arj.
         <dependency>
           <groupId>org.checkerframework</groupId>
           <artifactId>checker</artifactId>
-          <version>3.35.0</version>
+          <version>3.38.0</version>
         </dependency>
       </dependencies>
     </profile>
